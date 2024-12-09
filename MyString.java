@@ -55,11 +55,15 @@ public class MyString {
         int[] letterTimes2 = new int[26];
         // Count character frequencies in str1
         for (char c : str1.toCharArray()) {
-            letterTimes1[c - 'a']++;
+            if (c >= 'a' && c <= 'z') {
+                letterTimes1[c - 'a']++;
+            }
         }
         // Count character frequencies in str2
         for (char c : str2.toCharArray()) {
-            letterTimes2[c - 'a']++;
+            if (c >= 'a' && c <= 'z') {
+                letterTimes2[c - 'a']++;
+            }
         } 
         // Compare frequencies
         for (int i = 0; i < 26; i++) {
