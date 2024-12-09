@@ -63,41 +63,21 @@ public class Scrabble {
 	// If the length of the word equals the length of the hand, adds 50 points to the score.
 	// If the word includes the sequence "runi", adds 1000 points to the game.
 	public static int wordScore(String word) {
+		if (word == null || word.isEmpty()) {
+			return 0;
+		}
 		int scorePoints = 0;
-		if (word.length() == HAND_SIZE) {
-			scorePoints += 50;
-		}
-		if (contains(word, "runi")) {
-			scorePoints += 1000;
-		}
 		for (char c : word.toCharArray()) {
 			scorePoints += SCRABBLE_LETTER_VALUES[c - 97];
 		}
+		scorePoints *= word.length();
+		if (word.length() == HAND_SIZE) {
+			scorePoints += 50;
+		}
+		if (MyString.subsetOf("runi", word)) {
+			scorePoints += 1000;
+		}
 		return scorePoints;
-	}
-
-	/** If str1 contains str2, returns true; otherwise returns false. */
-	public static boolean contains(String str1, String str2) {
-		// Case: Input Error.
-		if (str1 == null || str2 == null) {
-			return false;
-		} 
-		// Case: Empty String.
-		if (str2.equals("")) {
-			return true;
-		}
-		// Case: Str1 cannot contain Str2 as it's smaller.
-		if (str2.length() > str1.length()) {
-			return false;
-		}
-		int iterateLimit = str1.length() - str2.length();
-		for (int i = 0; i <= iterateLimit; i++) {
-			String subString = str1.substring(i, i+str2.length());
-			if(subString.equals(str2)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	// Creates a random hand of length (HAND_SIZE - 2) and then inserts
